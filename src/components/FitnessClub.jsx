@@ -19,6 +19,7 @@ const FitnessClub = () => {
 
     const toggleShowMembers = () => {
         setShowMembers(!showMembers);
+        alert("Work in progress");
     };
 
     return (
