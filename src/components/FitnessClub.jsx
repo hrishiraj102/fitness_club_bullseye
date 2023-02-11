@@ -1,4 +1,4 @@
-import { Button, Grid, TextField, Box } from "@mui/material";
+import { Button, Grid, TextField, Box, Snackbar, Alert, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 import React, { useState } from "react";
 
 
@@ -9,17 +9,28 @@ const FitnessClub = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [address, setAddress] = useState("");
     const [members, setMembers] = useState([]);
+    const [showSuccess, setShowSuccess] = useState(false);
     const [showMembers, setShowMembers] = useState(false);
 
     const handleSubmit = event => {
         event.preventDefault();
         setMembers([...members, { name, email, phoneNumber, address }]);
         alert("User added successfully");
+        setShowSuccess(true);
+        setName("");
+        setEmail("");
+        setPhoneNumber("");
+        setAddress("");
     };
+
+    const handleClose = () => {
+        setShowSuccess(false);
+    };
+
 
     const toggleShow = () => {
         setShowMembers(!showMembers);
-        alert("Work in progress");
+
     };
 
     return (
@@ -69,14 +80,43 @@ const FitnessClub = () => {
 
 
             </Grid>
-            <Grid>
+            <Grid >
                 <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2, ml: 18, width: "250px" }} color="primary"
                     onClick={toggleShow}
                 >
                     View Member List
                 </Button>
+                <Grid sx={{ backgroundColor: "white" }}>
 
-                
+
+                    {showMembers && (
+                        <Table >
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell>Email</TableCell>
+                                    <TableCell>Phone Number</TableCell>
+                                    <TableCell>Address</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {members.map((member, index) => (<TableRow key={index}>
+                                    <TableCell>{member.name}</TableCell>
+                                    <TableCell>{member.email}</TableCell>
+                                    <TableCell>{member.phoneNumber}</TableCell>
+                                    <TableCell>{member.address}</TableCell>
+                                </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    )}
+                    <Snackbar open={showSuccess} autoHideDuration={6000} onClose={handleClose}>
+                        <Alert onClose={handleClose} severity="success">
+                            User added successfully!
+                        </Alert>
+                    </Snackbar>
+                </Grid>
+
             </Grid>
         </Box>
     );
