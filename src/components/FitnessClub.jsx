@@ -17,7 +17,7 @@ const FitnessClub = () => {
         alert("User added successfully");
     };
 
-    const toggleShowMembers = () => {
+    const toggleShow = () => {
         setShowMembers(!showMembers);
         alert("Work in progress");
     };
@@ -71,10 +71,12 @@ const FitnessClub = () => {
             </Grid>
             <Grid>
                 <Button type="submit" variant="contained" sx={{ mt: 2, mb: 2, ml: 18, width: "250px" }} color="primary"
-                    onClick={toggleShowMembers}
+                    onClick={toggleShow}
                 >
                     View Member List
                 </Button>
+
+                
             </Grid>
         </Box>
     );
